@@ -16,6 +16,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
+    }
 
     buildTypes {
         release {
@@ -25,10 +31,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -42,7 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.6.5-alpha01")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha03")
 
     // EventBus for service communication
     implementation("org.greenrobot:eventbus:3.3.1")
@@ -50,6 +52,9 @@ dependencies {
     // Media3 session for background playback
     implementation("androidx.media3:media3-session:1.4.0")
     implementation("androidx.media3:media3-ui:1.4.0")
+    
+    // Core Library Desugaring
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

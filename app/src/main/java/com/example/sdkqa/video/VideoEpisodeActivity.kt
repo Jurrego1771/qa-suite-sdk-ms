@@ -163,6 +163,10 @@ class VideoEpisodeActivity : AppCompatActivity() {
             }
 
             override fun onLocalSourceAdded() {}
+            
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
 
             override fun onAdEvents(type: AdEvent.AdEventType) {
                 Log.d(TAG, "onAdEvents: ${type.name}")
