@@ -17,6 +17,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://npaw.jfrog.io/artifactory/youbora/") }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 

@@ -18,6 +18,7 @@ import com.example.sdkqa.audio.AudioMixedActivity
 import com.example.sdkqa.audio.AudioMixedWithServiceActivity
 import com.example.sdkqa.video.VideoEpisodeActivity
 import com.example.sdkqa.video.VideoLiveActivity
+import com.example.sdkqa.video.VideoLiveDrmActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
 import com.example.sdkqa.video.VideoLocalActivity
 import com.example.sdkqa.video.VideoLocalWithServiceActivity
@@ -122,6 +123,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_LIVE_DVR -> {
                 Log.d(TAG, "Launching Video Live DVR test...")
                 startActivity(Intent(this, VideoLiveDvrActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LIVE_DRM -> {
+                Log.d(TAG, "Launching Video Live DRM test...")
+                startActivity(Intent(this, VideoLiveDrmActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_MIXED -> {
                 Log.d(TAG, "Launching Video Mixed test...")

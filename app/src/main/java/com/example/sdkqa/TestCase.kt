@@ -31,6 +31,7 @@ data class TestCase(
         VIDEO_EPISODE,
         VIDEO_LIVE,
         VIDEO_LIVE_DVR,
+        VIDEO_LIVE_DRM,
         VIDEO_MIXED,
         VIDEO_MIXED_WITH_SERVICE
     }
@@ -59,6 +60,7 @@ data class TestCase(
             TestCase(TestCaseType.VIDEO_EPISODE, "Episode", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE, "Live Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_LIVE_DRM, "Live Video DRM", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED, "Mixed Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO)
         )

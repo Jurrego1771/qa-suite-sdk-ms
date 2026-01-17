@@ -223,6 +223,10 @@ class VideoMixedWithServiceActivity : AppCompatActivity() {
             override fun onLocalSourceAdded() {
                 Log.d(TAG, "onLocalSourceAdded")
             }
+            
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
 
             override fun onAdEvents(type: AdEvent.AdEventType) {
                 Log.d(TAG, "onAdEvents: ${type.name}")
