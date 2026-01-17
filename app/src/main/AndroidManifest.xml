@@ -159,6 +159,20 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".video.VideoLiveCustomUIActivity"
+            android:exported="false"
+            android:label="Video Live Custom UI"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".audio.AudioLiveCustomUIActivity"
+            android:exported="false"
+            android:label="Audio Live Custom UI"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".video.VideoMixedActivity"
             android:exported="false"
             android:label="Video Mixed"
