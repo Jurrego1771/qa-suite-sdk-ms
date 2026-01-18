@@ -1,4 +1,4 @@
-package com.example.sdkqa.audio
+package com.example.sdkqa.video
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -14,8 +14,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.RuleChain
-import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import android.widget.FrameLayout
 import androidx.media3.ui.PlayerView
@@ -25,7 +23,7 @@ import java.util.concurrent.TimeUnit
 import java.lang.reflect.Method
 
 /**
- * Pruebas automatizadas para AudioLiveActivity usando Espresso.
+ * Pruebas automatizadas para VideoLiveActivity usando Espresso.
  * 
  * Estas pruebas verifican:
  * 1. Inicialización correcta del MediastreamPlayer
@@ -35,10 +33,10 @@ import java.lang.reflect.Method
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class AudioLiveActivityTest {
+class VideoLiveActivityTest {
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(AudioLiveActivity::class.java)
+    val activityRule = ActivityScenarioRule(VideoLiveActivity::class.java)
     
     @get:Rule
     val failureWatcher = TestFailureWatcher()
@@ -61,7 +59,7 @@ class AudioLiveActivityTest {
                 injectTestCallback(activity)
             } catch (e: Exception) {
                 // Si falla la inyección, continuamos sin verificación de callbacks
-                android.util.Log.w("AudioLiveActivityTest", "No se pudo inyectar callback de prueba: ${e.message}")
+                android.util.Log.w("VideoLiveActivityTest", "No se pudo inyectar callback de prueba: ${e.message}")
             }
         }
     }
@@ -69,10 +67,10 @@ class AudioLiveActivityTest {
     /**
      * Inyecta el callback de prueba en la Activity usando reflection.
      */
-    private fun injectTestCallback(activity: AudioLiveActivity) {
+    private fun injectTestCallback(activity: VideoLiveActivity) {
         try {
             // Acceder al campo 'player' usando reflection
-            val playerField = AudioLiveActivity::class.java.getDeclaredField("player")
+            val playerField = VideoLiveActivity::class.java.getDeclaredField("player")
             playerField.isAccessible = true
             val player = playerField.get(activity)
             
@@ -85,7 +83,7 @@ class AudioLiveActivityTest {
                 addCallbackMethod.invoke(player, testCallback)
             }
         } catch (e: Exception) {
-            android.util.Log.w("AudioLiveActivityTest", "Error inyectando callback: ${e.message}")
+            android.util.Log.w("VideoLiveActivityTest", "Error inyectando callback: ${e.message}")
         }
     }
 
