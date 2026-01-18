@@ -67,8 +67,44 @@ class AudioLiveActivity : AppCompatActivity() {
             supportFragmentManager
         )
 
-        player?.addPlayerCallback(createPlayerCallback())
+        val baseCallback = createPlayerCallback()
+        val testCallback = getTestCallback()
+        
+        // Si hay un callback de prueba, envolver el callback base
+        val finalCallback = if (testCallback != null) {
+            object : MediastreamPlayerCallback by baseCallback {
+                override fun onPlay() {
+                    baseCallback.onPlay()
+                    testCallback.onPlay()
+                }
+                
+                override fun onPause() {
+                    baseCallback.onPause()
+                    testCallback.onPause()
+                }
+                
+                override fun onReady() {
+                    baseCallback.onReady()
+                    testCallback.onReady()
+                }
+                
+                override fun playerViewReady(msplayerView: PlayerView?) {
+                    baseCallback.playerViewReady(msplayerView)
+                    testCallback.playerViewReady(msplayerView)
+                }
+            }
+        } else {
+            baseCallback
+        }
+        
+        player?.addPlayerCallback(finalCallback)
     }
+
+    /**
+     * Método protegido que puede ser sobrescrito en tests para inyectar un callback de prueba.
+     * Retorna null por defecto, pero puede ser sobrescrito usando reflection o herencia en tests.
+     */
+    protected open fun getTestCallback(): MediastreamPlayerCallback? = null
 
     private fun createPlayerCallback(): MediastreamPlayerCallback {
         return object : MediastreamPlayerCallback {
