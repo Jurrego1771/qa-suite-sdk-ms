@@ -133,7 +133,8 @@ jobs:
           echo "  Failed: $FAILED_TESTS"
       
       - name: Notify Slack
-        if: always() && secrets.SLACK_WEBHOOK_URL != null && secrets.SLACK_WEBHOOK_URL != ''
+        if: always()
+        continue-on-error: true
         uses: slackapi/slack-github-action@v1
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
