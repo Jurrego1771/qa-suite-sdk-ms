@@ -59,4 +59,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:3.7.0")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.7.0")
+    androidTestImplementation("androidx.test:rules:1.7.0")
+    androidTestImplementation("androidx.test:runner:1.7.0")
 }
