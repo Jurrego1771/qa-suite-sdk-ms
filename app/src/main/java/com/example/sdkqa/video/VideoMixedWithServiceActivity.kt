@@ -37,7 +37,7 @@ class VideoMixedWithServiceActivity : AppCompatActivity() {
 
         // Content IDs
         private const val VOD_ID = "685be889d76b0da57e68620e"
-        private const val LIVE_ID = "6824d425c3ae719205f54245"
+        private const val LIVE_ID = "5fd39e065d68477eaa1ccf5a"
         private const val EPISODE_ID = "696808734a117b1460e8e4f8"
     }
 

@@ -71,7 +71,7 @@ class VideoLiveCustomUIActivity : AppCompatActivity() {
         val mainMediaFrame = findViewById<FrameLayout>(R.id.main_media_frame)
 
         val config = MediastreamPlayerConfig().apply {
-            id = "6824d425c3ae719205f54245" // Live Video ID
+            id = "5fd39e065d68477eaa1ccf5a" // Live Video ID
             type = MediastreamPlayerConfig.VideoTypes.LIVE
             showControls = true
             //Uncomment to use development environment

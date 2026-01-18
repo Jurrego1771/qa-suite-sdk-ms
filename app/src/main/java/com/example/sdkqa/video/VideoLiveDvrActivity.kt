@@ -37,7 +37,7 @@ class VideoLiveDvrActivity : AppCompatActivity() {
     private val modes = arrayOf("Live", "DVR", "DVR Start", "DVR VOD")
 
     // Base configuration
-    private val baseId = "6824d425c3ae719205f54245"
+    private val baseId = "5fd39e065d68477eaa1ccf5a"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

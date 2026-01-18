@@ -69,7 +69,7 @@ class AudioLiveCustomUIActivity : AppCompatActivity() {
         val mainMediaFrame = findViewById<FrameLayout>(R.id.main_media_frame)
 
         val config = MediastreamPlayerConfig().apply {
-            id = "5c915724519bce27671c4d15" // Live Audio ID
+            id = "5fc15ac7a215f94be1ff9c2d" // Live Audio ID
             type = MediastreamPlayerConfig.VideoTypes.LIVE
             playerType = MediastreamPlayerConfig.PlayerType.AUDIO
             showControls = false // We use custom UI

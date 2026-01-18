@@ -53,7 +53,7 @@ class VideoVodSimpleActivity : AppCompatActivity() {
 
     private fun setupPlayer(mainMediaFrame: FrameLayout) {
         val config = MediastreamPlayerConfig().apply {
-            id = "685be889d76b0da57e68620e"
+            id = "696bc8a832ce0ef08c6fa0ef"
             type = MediastreamPlayerConfig.VideoTypes.VOD
             //Uncomment to use development environment
             //environment = MediastreamPlayerConfig.Environment.DEV
