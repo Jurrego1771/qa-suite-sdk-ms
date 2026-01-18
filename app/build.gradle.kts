@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha03")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha04")
 
     // EventBus for service communication
     implementation("org.greenrobot:eventbus:3.3.1")
@@ -63,4 +63,12 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.7.0")
     androidTestImplementation("androidx.test:rules:1.7.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
+    
+    // UiAutomator para captura de screenshots
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0")
+    
+    // Allure para reportes avanzados
+    androidTestImplementation("io.qameta.allure:allure-kotlin-android:2.4.0")
+    androidTestImplementation("io.qameta.allure:allure-kotlin-commons:2.4.0")
+    androidTestImplementation("io.qameta.allure:allure-kotlin-junit4:2.4.0")
 }
