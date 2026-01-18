@@ -6,38 +6,33 @@ on:
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
-    inputs:
-      sdk_version:
-        description: 'SDK Version to test'
-        required: false
-        default: '9.6.0'
 
 jobs:
   test:
     runs-on: macos-latest
     
-    strategy:
-      fail-fast: false
-      matrix:
-        sdk_version:
-          - "9.6.0"
-          - "9.7.0"
-          - "9.8.0"
-          - "9.9.1-alpha04"
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Set up JDK 11
+      - name: Extract SDK version from build.gradle.kts
+        id: sdk-version
+        run: |
+          SDK_VERSION=$(grep -o 'mediastreamplatformsdkandroid:[^"]*' app/build.gradle.kts | cut -d: -f2 | tr -d '"' | tr -d ' ')
+          echo "sdk_version=$SDK_VERSION" >> $GITHUB_OUTPUT
+          echo "SDK Version encontrada: $SDK_VERSION"
+      
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
           cache: 'gradle'
       
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        env:
+          SKIP_JDK_VERSION_CHECK: false
       
       - name: Create AVD and generate snapshot for caching
         uses: reactivecircus/android-emulator-runner@v2
@@ -49,13 +44,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot"
-      
-      - name: Update SDK version in build.gradle.kts
-        run: |
-          SDK_VERSION="${{ matrix.sdk_version }}"
-          sed -i '' "s/mediastreamplatformsdkandroid:.*/mediastreamplatformsdkandroid:$SDK_VERSION\"/" app/build.gradle.kts
-          echo "Updated SDK version to $SDK_VERSION"
-          cat app/build.gradle.kts | grep mediastreamplatformsdkandroid
       
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -99,7 +87,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-sdk-${{ matrix.sdk_version }}
+          name: allure-results-sdk-${{ steps.sdk-version.outputs.sdk_version }}
           path: allure-results
           retention-days: 30
       
@@ -107,7 +95,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report-sdk-${{ matrix.sdk_version }}
+          name: allure-report-sdk-${{ steps.sdk-version.outputs.sdk_version }}
           path: allure-report
           retention-days: 30
       
@@ -138,18 +126,18 @@ jobs:
           echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
           echo "passed=$PASSED_TESTS" >> $GITHUB_OUTPUT
           echo "failed=$FAILED_TESTS" >> $GITHUB_OUTPUT
-          echo "sdk_version=${{ matrix.sdk_version }}" >> $GITHUB_OUTPUT
           
-          echo "Test Results for SDK ${{ matrix.sdk_version }}:"
+          echo "Test Results for SDK ${{ steps.sdk-version.outputs.sdk_version }}:"
           echo "  Total: $TOTAL_TESTS"
           echo "  Passed: $PASSED_TESTS"
           echo "  Failed: $FAILED_TESTS"
       
       - name: Notify Slack
-        if: always()
+        if: always() && secrets.SLACK_WEBHOOK_URL != null && secrets.SLACK_WEBHOOK_URL != ''
         uses: slackapi/slack-github-action@v1
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
             {
               "text": "🧪 Android Tests - SDK QA Suite",
@@ -166,7 +154,7 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*SDK Version:*\n${{ matrix.sdk_version }}"
+                      "text": "*SDK Version:*\n${{ steps.sdk-version.outputs.sdk_version }}"
                     },
                     {
                       "type": "mrkdwn",
@@ -208,8 +196,6 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   
   deploy-report:
     needs: test
