@@ -59,7 +59,7 @@ class VideoEpisodeActivity : AppCompatActivity() {
 
     private fun createConfig(): MediastreamPlayerConfig {
         return MediastreamPlayerConfig().apply {
-            id = "696808734a117b1460e8e4f8"
+            id = "696c5dbb76d96a30f6542ab7"
             type = MediastreamPlayerConfig.VideoTypes.EPISODE
             showControls = true
             loadNextAutomatically = true

@@ -17,7 +17,9 @@ import com.example.sdkqa.audio.AudioLiveWithServiceActivity
 import com.example.sdkqa.audio.AudioMixedActivity
 import com.example.sdkqa.audio.AudioMixedWithServiceActivity
 import com.example.sdkqa.video.VideoEpisodeActivity
+import com.example.sdkqa.audio.AudioLiveCustomUIActivity
 import com.example.sdkqa.video.VideoLiveActivity
+import com.example.sdkqa.video.VideoLiveCustomUIActivity
 import com.example.sdkqa.video.VideoLiveDrmActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
 import com.example.sdkqa.video.VideoLocalActivity
@@ -100,6 +102,10 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Launching Audio Mixed with Service test...")
                 startActivity(Intent(this, AudioMixedWithServiceActivity::class.java))
             }
+            TestCase.TestCaseType.AUDIO_LIVE_CUSTOM_UI -> {
+                Log.d(TAG, "Launching Audio Live Custom UI test...")
+                startActivity(Intent(this, AudioLiveCustomUIActivity::class.java))
+            }
             TestCase.TestCaseType.VIDEO_VOD_SIMPLE -> {
                 Log.d(TAG, "Launching Video VOD Simple test...")
                 startActivity(Intent(this, VideoVodSimpleActivity::class.java))
@@ -127,6 +133,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_LIVE_DRM -> {
                 Log.d(TAG, "Launching Video Live DRM test...")
                 startActivity(Intent(this, VideoLiveDrmActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LIVE_CUSTOM_UI -> {
+                Log.d(TAG, "Launching Video Live Custom UI test...")
+                startActivity(Intent(this, VideoLiveCustomUIActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_MIXED -> {
                 Log.d(TAG, "Launching Video Mixed test...")

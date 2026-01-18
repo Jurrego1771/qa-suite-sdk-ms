@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Player Container -->
+    <FrameLayout
+        android:id="@+id/main_media_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:keepScreenOn="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Events Log Panel -->
+    <ScrollView
+        android:id="@+id/scrollEvents"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/spinner_background"
+        android:padding="12dp"
+        android:maxHeight="300dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Log"
+                android:textColor="@color/accent_video"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvEventsLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Waiting for events..."
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:lineSpacingExtra="2dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Floating Action Buttons -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="Play"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/accent_video"
+        app:layout_constraintBottom_toTopOf="@id/fabPause"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_media_pause"
+        android:contentDescription="Pause"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/accent_video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Event Status Indicators -->
+    <LinearLayout
+        android:id="@+id/eventIndicators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:background="@drawable/spinner_background"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Events Status"
+            android:textColor="@color/accent_video"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvEventStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ready"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="monospace" />
+
+        <View
+            android:id="@+id/indicatorOnPlay"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/spinner_background"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/indicatorOnPause"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/spinner_background"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/indicatorOnReady"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/spinner_background"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/indicatorOnError"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/accent_video"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Clear Log Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClearLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear Log"
+        android:textSize="10sp"
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        app:backgroundTint="@color/card_background"
+        app:layout_constraintTop_toBottomOf="@id/scrollEvents"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ class AudioMixedActivity : AppCompatActivity() {
 
         // Content IDs
         private const val AOD_ID = "67ae0ec86dcc4a0dca2e9b00"
-        private const val LIVE_ID = "5c915724519bce27671c4d15"
+        private const val LIVE_ID = "5fc15ac7a215f94be1ff9c2d"
         private const val EPISODE_ID = "6193f836de7392082f8377dc"
     }
 
