@@ -31,19 +31,6 @@ jobs:
       
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        env:
-          SKIP_JDK_VERSION_CHECK: false
-      
-      - name: Create AVD and generate snapshot for caching
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          arch: x86_64
-          profile: Nexus 6
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot"
       
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -54,8 +41,9 @@ jobs:
           api-level: 34
           arch: x86_64
           profile: Nexus 6
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          force-avd-creation: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot
           disable-animations: true
           script: |
             ./gradlew connectedAndroidTest --stacktrace --no-daemon
