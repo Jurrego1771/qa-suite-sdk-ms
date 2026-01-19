@@ -145,6 +145,15 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".video.VideoLivePiPActivity"
+            android:exported="false"
+            android:label="Video Live PiP"
+            android:supportsPictureInPicture="true"
+            android:resizeableActivity="true"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".video.VideoLiveDvrActivity"
             android:exported="false"
             android:label="Video Live DVR"

@@ -22,6 +22,7 @@ import com.example.sdkqa.video.VideoLiveActivity
 import com.example.sdkqa.video.VideoLiveCustomUIActivity
 import com.example.sdkqa.video.VideoLiveDrmActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
+import com.example.sdkqa.video.VideoLivePiPActivity
 import com.example.sdkqa.video.VideoLocalActivity
 import com.example.sdkqa.video.VideoLocalWithServiceActivity
 import com.example.sdkqa.video.VideoMixedActivity
@@ -125,6 +126,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_LIVE -> {
                 Log.d(TAG, "Launching Video Live test...")
                 startActivity(Intent(this, VideoLiveActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LIVE_PIP -> {
+                Log.d(TAG, "Launching Video Live PiP test...")
+                startActivity(Intent(this, VideoLivePiPActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_LIVE_DVR -> {
                 Log.d(TAG, "Launching Video Live DVR test...")

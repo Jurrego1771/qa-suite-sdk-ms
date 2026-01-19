@@ -139,43 +139,55 @@ class SDKIntegrationTest {
                         playerView?.player?.let { player ->
                             val initialPlayCount = PlayerCallbackTracker.getPlayCallCount()
                             val initialErrorCount = PlayerCallbackTracker.getErrorCallCount()
+                            val wasAlreadyPlaying = player.isPlaying
                             
                             Allure.step("Llamar a player.play()") {
-                                if (!player.isPlaying) {
+                                if (!wasAlreadyPlaying) {
                                     player.play()
-                                    Thread.sleep(2000) // Dar tiempo para que se ejecuten los callbacks
                                 }
                             }
                             
-                            Allure.step("Verificar que onPlay() o onError() se haya llamado") {
+                            Allure.step("Esperar confirmación de reproducción o error") {
+                                val timeoutMs = 10_000L
+                                val pollMs = 250L
+                                val deadline = System.currentTimeMillis() + timeoutMs
+
+                                // Caso 1: ya estaba reproduciendo antes de que el test intente play()
+                                if (wasAlreadyPlaying) return@step
+
+                                // Caso 2: arranca después de play() -> esperar señal (estado o callback)
+                                while (System.currentTimeMillis() < deadline) {
+                                    val playCountAfter = PlayerCallbackTracker.getPlayCallCount()
+                                    val errorCountAfter = PlayerCallbackTracker.getErrorCallCount()
+
+                                    val nowPlaying = player.isPlaying || PlayerCallbackTracker.isPlaying()
+                                    val playCalled = playCountAfter > initialPlayCount
+                                    val errorCalled = errorCountAfter > initialErrorCount
+
+                                    if (nowPlaying || playCalled || errorCalled) {
+                                        if (errorCalled) {
+                                            Allure.step("onError() se ejecutó - verificar logs") {
+                                                val errorLogs = LogcatCapture.getErrorLogs()
+                                                assert(errorLogs.isNotEmpty()) {
+                                                    "Debe haber logs de error disponibles"
+                                                }
+                                            }
+                                        }
+                                        return@step
+                                    }
+
+                                    uiController.loopMainThreadForAtLeast(pollMs)
+                                }
+
                                 val playCountAfter = PlayerCallbackTracker.getPlayCallCount()
                                 val errorCountAfter = PlayerCallbackTracker.getErrorCallCount()
-                                
-                                val playCalled = playCountAfter > initialPlayCount
-                                val errorCalled = errorCountAfter > initialErrorCount
-                                
-                                assert(playCalled || errorCalled) {
-                                    "Debe haberse llamado onPlay() o onError(). " +
-                                    "onPlay: $playCalled (count: $playCountAfter), " +
-                                    "onError: $errorCalled (count: $errorCountAfter)"
-                                }
-                                
-                                if (playCalled) {
-                                    Allure.step("onPlay() se ejecutó correctamente") {
-                                        assert(PlayerCallbackTracker.isPlaying()) {
-                                            "El tracker debe indicar que está reproduciendo"
-                                        }
-                                    }
-                                }
-                                
-                                if (errorCalled) {
-                                    Allure.step("onError() se ejecutó - verificar logs") {
-                                        val errorLogs = LogcatCapture.getErrorLogs()
-                                        assert(errorLogs.isNotEmpty()) {
-                                            "Debe haber logs de error disponibles"
-                                        }
-                                    }
-                                }
+                                throw AssertionError(
+                                    "Debe haberse confirmado reproducción o error después de play(). " +
+                                        "wasAlreadyPlaying: $wasAlreadyPlaying, " +
+                                        "isPlaying: ${player.isPlaying}, " +
+                                        "playCount: $playCountAfter (initial: $initialPlayCount), " +
+                                        "errorCount: $errorCountAfter (initial: $initialErrorCount)"
+                                )
                             }
                         } ?: throw AssertionError("Player no debe ser null")
                     }
