@@ -69,6 +69,13 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".audio.AudioAodCustomUIActivity"
+            android:exported="false"
+            android:label="Audio AOD Custom UI"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".audio.AudioAodWithServiceActivity"
             android:exported="false"
             android:label="Audio AOD with Service"
