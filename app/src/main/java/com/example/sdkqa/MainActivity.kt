@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sdkqa.audio.AudioAodSimpleActivity
+import com.example.sdkqa.audio.AudioAodCustomUIActivity
 import com.example.sdkqa.audio.AudioAodWithServiceActivity
 import com.example.sdkqa.audio.AudioEpisodeActivity
 import com.example.sdkqa.audio.AudioLiveActivity
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.AUDIO_AOD_WITH_SERVICE -> {
                 Log.d(TAG, "Launching Audio AOD with Service test...")
                 startActivity(Intent(this, AudioAodWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_AOD_CUSTOM_UI -> {
+                Log.d(TAG, "Launching Audio AOD Custom UI test...")
+                startActivity(Intent(this, AudioAodCustomUIActivity::class.java))
             }
             TestCase.TestCaseType.AUDIO_EPISODE -> {
                 Log.d(TAG, "Launching Audio Episode test...")

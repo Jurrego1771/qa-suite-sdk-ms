@@ -17,6 +17,7 @@ data class TestCase(
     enum class TestCaseType {
         AUDIO_AOD_SIMPLE,
         AUDIO_AOD_WITH_SERVICE,
+        AUDIO_AOD_CUSTOM_UI,
         AUDIO_EPISODE,
         AUDIO_LOCAL,
         AUDIO_LOCAL_WITH_SERVICE,
@@ -48,6 +49,7 @@ data class TestCase(
             // Audio Test Cases
             TestCase(TestCaseType.AUDIO_AOD_SIMPLE, "AOD Simple", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_AOD_WITH_SERVICE, "AOD with Service", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_AOD_CUSTOM_UI, "AOD Custom UI", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_EPISODE, "Episode", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LOCAL, "Local Audio", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LOCAL_WITH_SERVICE, "Local Audio with Service", Category.AUDIO),

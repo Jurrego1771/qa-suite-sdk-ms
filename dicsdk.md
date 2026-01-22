@@ -347,6 +347,15 @@ Seeks to a position specified in milliseconds in the current video.
 
 Allows to reload the player with a new content without kill the player instance.
 
+### Tip (cambiar contenido por `id`)
+
+To reload the same player instance with a different content, build a new `MediastreamPlayerConfig` and **only change** `config.id` (your contentId) and then call `reloadPlayer(config)`.
+
+In this QA Suite repo there is an example of this pattern in `AudioAodCustomUIActivity`, where a **radio-like selector** switches between two placeholder IDs:
+
+- `CONTENT_ID_A`: a working sample id
+- `CONTENT_ID_B`: `REPLACE_ME_CONTENT_ID_B` (replace it with your own)
+
 ## `releasePlayer()`
 
 When you are finished using this MediastreamPlayer, make sure to call this method to kill player instance.
