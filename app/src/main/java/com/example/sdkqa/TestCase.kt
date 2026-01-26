@@ -35,6 +35,8 @@ data class TestCase(
         VIDEO_LIVE_DVR,
         VIDEO_LIVE_DRM,
         VIDEO_LIVE_CUSTOM_UI,
+        VIDEO_NEXT_EPISODE,
+        VIDEO_NEXT_EPISODE_CUSTOM_UI,
         VIDEO_MIXED,
         VIDEO_MIXED_WITH_SERVICE,
         AUDIO_LIVE_CUSTOM_UI
@@ -69,6 +71,8 @@ data class TestCase(
             TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE_DRM, "Live Video DRM", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE_CUSTOM_UI, "Live Video Custom UI", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_NEXT_EPISODE, "Next Episode (SDK/UI)", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_NEXT_EPISODE_CUSTOM_UI, "Next Episode (Manual/Custom)", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED, "Mixed Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO)
         )

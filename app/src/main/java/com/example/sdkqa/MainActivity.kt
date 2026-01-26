@@ -28,6 +28,8 @@ import com.example.sdkqa.video.VideoLocalActivity
 import com.example.sdkqa.video.VideoLocalWithServiceActivity
 import com.example.sdkqa.video.VideoMixedActivity
 import com.example.sdkqa.video.VideoMixedWithServiceActivity
+import com.example.sdkqa.video.VideoNextEpisodeActivity
+import com.example.sdkqa.video.VideoNextEpisodeCustomUIActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
 
 class MainActivity : AppCompatActivity() {
@@ -147,6 +149,14 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_LIVE_CUSTOM_UI -> {
                 Log.d(TAG, "Launching Video Live Custom UI test...")
                 startActivity(Intent(this, VideoLiveCustomUIActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_NEXT_EPISODE -> {
+                Log.d(TAG, "Launching Video Next Episode (SDK/UI) test...")
+                startActivity(Intent(this, VideoNextEpisodeActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_NEXT_EPISODE_CUSTOM_UI -> {
+                Log.d(TAG, "Launching Video Next Episode (Manual/Custom) test...")
+                startActivity(Intent(this, VideoNextEpisodeCustomUIActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_MIXED -> {
                 Log.d(TAG, "Launching Video Mixed test...")
