@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha06")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha07")
 
     // EventBus for service communication
     implementation("org.greenrobot:eventbus:3.3.1")

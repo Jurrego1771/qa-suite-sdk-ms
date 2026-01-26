@@ -182,6 +182,20 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".video.VideoNextEpisodeActivity"
+            android:exported="false"
+            android:label="Video Next Episode (SDK/UI)"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".video.VideoNextEpisodeCustomUIActivity"
+            android:exported="false"
+            android:label="Video Next Episode (Manual/Custom)"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".audio.AudioLiveCustomUIActivity"
             android:exported="false"
             android:label="Audio Live Custom UI"
