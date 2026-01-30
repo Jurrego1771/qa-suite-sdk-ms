@@ -29,7 +29,7 @@ class AudioAodCustomUIActivity : AppCompatActivity() {
 
         // Ajusta estos IDs luego (dejé uno real y uno placeholder)
         private const val CONTENT_ID_A = "696c625d32ce0ef08ca5ef9d"
-        private const val CONTENT_ID_B = "67ae0ec86dcc4a0dca2e9b00"
+        private const val CONTENT_ID_B = "697cc226ba55504e96c9f462"
     }
 
     private var player: MediastreamPlayer? = null

@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:9.9.1-alpha07")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:10.0.0-alpha.01")
 
     // EventBus for service communication
     implementation("org.greenrobot:eventbus:3.3.1")
@@ -54,7 +54,7 @@ dependencies {
     implementation("androidx.media3:media3-ui:1.4.0")
     
     // Core Library Desugaring
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

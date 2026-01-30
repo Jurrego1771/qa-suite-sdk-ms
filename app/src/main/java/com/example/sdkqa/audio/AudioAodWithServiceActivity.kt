@@ -59,7 +59,7 @@ class AudioAodWithServiceActivity : AppCompatActivity() {
 
     private fun createConfig(): MediastreamPlayerConfig {
         return MediastreamPlayerConfig().apply {
-            id = "696c625d32ce0ef08ca5ef9d"
+            id = "697cc226ba55504e96c9f462"
             type = MediastreamPlayerConfig.VideoTypes.VOD
             videoFormat = MediastreamPlayerConfig.AudioVideoFormat.MP3
             //Uncomment to use development environment
