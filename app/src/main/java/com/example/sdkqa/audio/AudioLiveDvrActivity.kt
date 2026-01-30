@@ -120,7 +120,8 @@ class AudioLiveDvrActivity : AppCompatActivity() {
             }
             "DVR" -> {
                 config.dvr = true
-                Log.d(TAG, "Config: DVR mode - windowDvr: ${config.windowDvr}")
+                config.windowDvr = 60  // 1 hora = 60 minutos
+                Log.d(TAG, "Config: DVR mode with 1 hour window (60 minutes) - windowDvr: ${config.windowDvr}")
             }
             "DVR Start" -> {
                 config.dvr = true

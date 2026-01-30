@@ -31,6 +31,7 @@ import com.example.sdkqa.video.VideoMixedWithServiceActivity
 import com.example.sdkqa.video.VideoNextEpisodeActivity
 import com.example.sdkqa.video.VideoNextEpisodeCustomUIActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
+import com.example.sdkqa.video.VideoAdsClientSideActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -165,6 +166,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_MIXED_WITH_SERVICE -> {
                 Log.d(TAG, "Launching Video Mixed with Service test...")
                 startActivity(Intent(this, VideoMixedWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_ADS_CLIENT_SIDE -> {
+                Log.d(TAG, "Launching Video Ads Client-Side test...")
+                startActivity(Intent(this, VideoAdsClientSideActivity::class.java))
             }
         }
     }

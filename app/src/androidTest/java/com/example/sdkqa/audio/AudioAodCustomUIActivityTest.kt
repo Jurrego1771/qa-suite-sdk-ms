@@ -9,12 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.sdkqa.R
 import com.example.sdkqa.testutils.LogcatCapture
-import com.example.sdkqa.testutils.PlayerCallbackTracker
 import com.example.sdkqa.testutils.TestFailureWatcher
-import com.example.sdkqa.testutils.TestablePlayerCallback
 import org.hamcrest.CoreMatchers.containsString
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,29 +20,6 @@ class AudioAodCustomUIActivityTest {
 
     @get:Rule
     val failureWatcher = TestFailureWatcher()
-
-    private lateinit var testCallback: TestablePlayerCallback
-
-    @Before
-    fun setUp() {
-        // Iniciar captura de logs - CRÍTICO para que funcione countLogsContaining()
-        LogcatCapture.startCapture("AudioAodCustomUIActivityTest")
-        
-        // Reiniciar tracker de callbacks
-        PlayerCallbackTracker.reset()
-        
-        // Crear callback de prueba
-        testCallback = TestablePlayerCallback()
-    }
-
-    @After
-    fun tearDown() {
-        // Detener captura de logs
-        LogcatCapture.stopCapture()
-        
-        // Limpiar tracker
-        PlayerCallbackTracker.reset()
-    }
 
     @Test
     fun launches_and_emits_ready_callbacks() {
@@ -59,76 +32,27 @@ class AudioAodCustomUIActivityTest {
 
     @Test
     fun play_pause_button_triggers_callbacks() {
-        ActivityScenario.launch(AudioAodCustomUIActivity::class.java).use { scenario ->
-            // Inyectar callback de prueba en la Activity
-            scenario.onActivity { activity ->
-                try {
-                    injectTestCallback(activity)
-                } catch (e: Exception) {
-                    android.util.Log.w("AudioAodCustomUIActivityTest", "No se pudo inyectar callback: ${e.message}")
-                }
-            }
-            
-            // Esperar a que el player esté listo
+        ActivityScenario.launch(AudioAodCustomUIActivity::class.java).use {
             waitForLogIncrement("playerViewReady", timeoutMs = 30_000)
 
-            // Capturar contadores ANTES del click
             val playActionBefore = countLogsContaining("USER ACTION: play()")
             val pauseActionBefore = countLogsContaining("USER ACTION: pause()")
             val onPlayBefore = countLogsContaining("onPlay")
             val onPauseBefore = countLogsContaining("onPause")
-            val playCallbackBefore = PlayerCallbackTracker.getPlayCallCount()
-            val pauseCallbackBefore = PlayerCallbackTracker.getPauseCallCount()
 
-            // Hacer click en el botón
             onView(withId(R.id.btnPlayPause)).perform(click())
 
-            // Estrategia híbrida: verificar tanto en logs como en callbacks
-            // El botón puede ejecutar play() o pause() dependiendo del estado inicial
-            val playedViaLog = waitForCountIncreaseNoThrow("USER ACTION: play()", playActionBefore, timeoutMs = 10_000)
-            val pausedViaLog = if (!playedViaLog) waitForCountIncreaseNoThrow("USER ACTION: pause()", pauseActionBefore, timeoutMs = 10_000) else false
-            
-            // Verificar también callbacks como respaldo
-            val playedViaCallback = PlayerCallbackTracker.getPlayCallCount() > playCallbackBefore
-            val pausedViaCallback = PlayerCallbackTracker.getPauseCallCount() > pauseCallbackBefore
+            // El botón puede ejecutar play() o pause() dependiendo del estado inicial.
+            val played = waitForCountIncrease("USER ACTION: play()", playActionBefore, timeoutMs = 10_000)
+            val paused = if (!played) waitForCountIncrease("USER ACTION: pause()", pauseActionBefore, timeoutMs = 10_000) else false
 
-            if (playedViaLog || playedViaCallback) {
-                // Se ejecutó play
+            if (played) {
                 waitForCountIncrease("onPlay", onPlayBefore, timeoutMs = 20_000)
-            } else if (pausedViaLog || pausedViaCallback) {
-                // Se ejecutó pause
+            } else if (paused) {
                 waitForCountIncrease("onPause", onPauseBefore, timeoutMs = 20_000)
             } else {
-                // No se detectó ninguna acción - error de test
-                val currentLogs = LogcatCapture.getRecentLogs(50).joinToString("\n")
-                throw AssertionError(
-                    "No se detectó acción de play() ni pause() tras el click.\n" +
-                    "Logs: playAction=$playActionBefore->$playActionBefore, pauseAction=$pauseActionBefore->$pauseActionBefore\n" +
-                    "Callbacks: play=$playCallbackBefore->${PlayerCallbackTracker.getPlayCallCount()}, pause=$pauseCallbackBefore->${PlayerCallbackTracker.getPauseCallCount()}\n" +
-                    "Últimos logs:\n$currentLogs"
-                )
+                throw AssertionError("No se detectó acción de play() ni pause() en Logcat tras el click.")
             }
-        }
-    }
-    
-    /**
-     * Inyecta el callback de prueba en la Activity usando reflection.
-     */
-    private fun injectTestCallback(activity: AudioAodCustomUIActivity) {
-        try {
-            val playerField = AudioAodCustomUIActivity::class.java.getDeclaredField("player")
-            playerField.isAccessible = true
-            val player = playerField.get(activity)
-            
-            if (player != null) {
-                val addCallbackMethod = player.javaClass.getMethod(
-                    "addPlayerCallback",
-                    am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback::class.java
-                )
-                addCallbackMethod.invoke(player, testCallback)
-            }
-        } catch (e: Exception) {
-            android.util.Log.w("AudioAodCustomUIActivityTest", "Error inyectando callback: ${e.message}")
         }
     }
 
@@ -179,18 +103,6 @@ class AudioAodCustomUIActivityTest {
             Thread.sleep(100)
         }
         throw AssertionError("Timeout esperando log '$needle' (before=$before).")
-    }
-    
-    /**
-     * Versión sin excepción de waitForCountIncrease - retorna true/false sin lanzar error.
-     */
-    private fun waitForCountIncreaseNoThrow(needle: String, before: Int, timeoutMs: Long): Boolean {
-        val deadline = System.currentTimeMillis() + timeoutMs
-        while (System.currentTimeMillis() < deadline) {
-            if (countLogsContaining(needle) > before) return true
-            Thread.sleep(100)
-        }
-        return false
     }
 }
 

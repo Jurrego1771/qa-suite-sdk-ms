@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <!-- Player Container -->
+    <FrameLayout
+        android:id="@+id/main_media_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:show_buffering="when_playing"
+            app:use_controller="true" />
+
+    </FrameLayout>
+
+    <!-- Controls Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#1E1E1E">
+
+        <!-- Ad Type Selector -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client-Side Ad Type (VAST/VMAP)"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerAdType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
+
+        <!-- Ad Status -->
+        <TextView
+            android:id="@+id/tvAdStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ad Status: Waiting..."
+            android:textColor="#00FF00"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="#2A2A2A" />
+
+        <!-- Ad Events Log -->
+        <TextView
+            android:id="@+id/tvAdEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Ad Event: None"
+            android:textColor="#FFD700"
+            android:textSize="12sp"
+            android:padding="8dp"
+            android:background="#2A2A2A"
+            android:maxLines="3"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -39,6 +39,7 @@ data class TestCase(
         VIDEO_NEXT_EPISODE_CUSTOM_UI,
         VIDEO_MIXED,
         VIDEO_MIXED_WITH_SERVICE,
+        VIDEO_ADS_CLIENT_SIDE,
         AUDIO_LIVE_CUSTOM_UI
     }
 
@@ -74,7 +75,8 @@ data class TestCase(
             TestCase(TestCaseType.VIDEO_NEXT_EPISODE, "Next Episode (SDK/UI)", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_NEXT_EPISODE_CUSTOM_UI, "Next Episode (Manual/Custom)", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED, "Mixed Video", Category.VIDEO),
-            TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO)
+            TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_ADS_CLIENT_SIDE, "Ads Client-Side (VAST/VMAP)", Category.VIDEO)
         )
     }
 
